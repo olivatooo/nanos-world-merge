@@ -1,7 +1,7 @@
 PhysicalMaterials = {
   "PM_Concrete",
   "PM_Flesh",
-  "PM_Glass", 
+  "PM_Glass",
   "PM_Grass",
   "PM_Gravel",
   "PM_Ground",
@@ -32,7 +32,7 @@ Props = {
   -- 2
   {
     Name = "steve",
-    Description = "old and reliable steve", 
+    Description = "old and reliable steve",
     Mesh = "nanos-world::SM_Sphere",
     TexturePath = "package://merge/Client/Textures/steve.jpg",
     PhysicalMaterial = "PM_Flesh"
@@ -41,7 +41,7 @@ Props = {
   {
     Name = "thinking",
     Description = "you really reported this as a bug?",
-    Mesh = "nanos-world::SM_Sphere", 
+    Mesh = "nanos-world::SM_Sphere",
     TexturePath = "package://merge/Client/Textures/thinking.png",
     PhysicalMaterial = "PM_RubberBouncy"
   },
@@ -74,7 +74,7 @@ Props = {
     Name = "network error",
     Description = "digital insanity, all you gonna see is",
     Mesh = "nanos-world::SM_Sphere",
-    Custom = {"Material", "nanos-world::M_Wireframe", "Tint", Color(0, 1, 0, 1), "Emissive", Color(0, 10, 0, 10)},
+    Custom = { "Material", "nanos-world::M_Wireframe", "Tint", Color(0, 1, 0, 1), "Emissive", Color(0, 10, 0, 10) },
     PhysicalMaterial = "PM_MetalLight"
   },
   -- 8
@@ -82,7 +82,7 @@ Props = {
     Name = "The Shining",
     Description = "Sometimes I wonder if this was a good idea",
     Mesh = "nanos-world::SM_Sphere",
-    Custom = {"Tint", Color(10, 10, 0, 1), "Emissive", Color(10, 10, 0, 10)},
+    Custom = { "Tint", Color(10, 10, 0, 1), "Emissive", Color(10, 10, 0, 10) },
     PhysicalMaterial = "PM_Glass"
   },
   -- 9
@@ -95,11 +95,11 @@ Props = {
   },
   -- 10
   {
-    Name = "Empty Slot",
-    Description = "This slot is empty",
+    Name = "one of us",
+    Description = "WAIT WHO IS GOING TO BE NEXT?",
     Mesh = "nanos-world::SM_Sphere",
-    TexturePath = "nanos-world::T_Default",
-    PhysicalMaterial = "PM_Metal"
+    Custom = { "Icon", true },
+    PhysicalMaterial = "PM_Plastic"
   },
   -- 11
   {
@@ -110,13 +110,6 @@ Props = {
     PhysicalMaterial = "PM_Rubber"
   },
   -- 12
-  {
-    Name = "one of us",
-    Description = "WAIT WHO IS GOING TO BE NEXT?",
-    Mesh = "nanos-world::SM_Sphere",
-    Custom = {"Icon", true},
-    PhysicalMaterial = "PM_Plastic"
-  },
   -- 13
   {
     Name = "Lucy in The Sky With Diamonds",
@@ -124,14 +117,14 @@ Props = {
     Mesh = "nanos-world::SM_Sphere",
     TexturePath = "package://merge/Client/Textures/lsd.png",
     PhysicalMaterial = "PM_Glass",
-    Custom = {"ColorBounce", true}
+    Custom = { "ColorBounce", true }
   },
   -- 14
   {
     Name = "ERROR",
     Description = "I'm sorry, I'm sorry, I'm sorry",
     Mesh = "nanos-world::SM_Sphere",
-    Custom = {"Material", "nanos-world::M_Default_Translucent_Lit_Depth", "StaticMesh", "nanos-world::SM_Error"},
+    Custom = { "Material", "nanos-world::M_Default_Translucent_Lit_Depth", "StaticMesh", "nanos-world::SM_Error" },
     PhysicalMaterial = "PM_Concrete"
   },
   -- 15
@@ -147,7 +140,7 @@ Props = {
     Name = "Super Massive Black Hole",
     Description = "that's a lot of mass",
     Mesh = "nanos-world::SM_Sphere",
-    Custom = {"BlackHole", true},
+    Custom = { "BlackHole", true },
     PhysicalMaterial = "PM_MetalLight"
   },
   -- 17
@@ -156,7 +149,7 @@ Props = {
     Description = "merge what can be merged, static is dynamic",
     Mesh = "nanos-world::SM_Sphere",
     TexturePath = "package://merge/Client/Textures/dirac.jpg",
-    Custom = {"Dirac", true},
+    Custom = { "Dirac", true },
     PhysicalMaterial = "PM_Water"
   },
   -- 18
