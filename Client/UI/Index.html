@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game UI</title>
+</head>
+<body>
+    <div class="window player-list-container">
+        <div class="title-bar">Players Online</div>
+        <div id="player-list" class="content">
+            Loading players...
+        </div>
+    </div>
+
+    <div class="window game-stats-container">
+        <div class="title-bar">Game Stats</div>
+        <div class="content">
+            <div class="stat-row">
+                <div>Server Time:</div>
+                <div id="server-time" class="value">Loading time machine...</div>
+            </div>
+            <div class="stat-row">
+                <div>Fellow Adventurers:</div>
+                <div id="player-count" class="value">Counting heads...</div>
+            </div>
+            <div class="stat-row">
+                <div>Your Money:</div>
+                <div id="points" class="value">Calculating awesomeness...</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="motivation-container" class="window motivation-container" style="display: none;">
+        <div class="title-bar">IMPORTANT!</div>
+        <div class="content">
+            <div id="motivation-message" class="motivation-text">Loading inspiration...</div>
+        </div>
+    </div>
+
+    <div id="prop-info" class="window prop-info-container" style="display: none;">
+        <div class="title-bar">Last Picked Up Prop</div>
+        <div class="content">
+            <div class="stat-row">
+                <div>Name:</div>
+                <div id="prop-name" class="value">-</div>
+            </div>
+            <div class="stat-row">
+                <div>Description:</div>
+                <div id="prop-description" class="value">-</div>
+            </div>
+            <div class="stat-row">
+                <div>Points:</div>
+                <div id="prop-value" class="value">-</div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: #e1e1e1;
+            margin: 0;
+            padding: 0;
+        }
+
+        .window {
+            position: fixed;
+            background: #1a1a1a;
+            border: 1px solid #3c3c3c;
+            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        .player-list-container {
+            top: 10px;
+            left: 10px;
+            min-width: 250px;
+        }
+
+        .game-stats-container {
+            top: 10px;
+            right: 10px;
+            min-width: 300px;
+        }
+
+        .motivation-container {
+            bottom: 10px;
+            right: 10px;
+            min-width: 400px;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95);
+            border: 3px solid #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .motivation-text {
+            font-size: 24px;
+            text-align: center;
+            padding: 20px;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .prop-info-container {
+            bottom: 10px;
+            left: 10px;
+            min-width: 250px;
+        }
+
+        .title-bar {
+            background: #2d2d2d;
+            padding: 6px 10px;
+            font-size: 14px;
+            border-bottom: 1px solid #3c3c3c;
+            user-select: none;
+        }
+
+        .content {
+            padding: 10px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px solid #2d2d2d;
+        }
+
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .value {
+            color: #4a9eff;
+        }
+
+        .player-item {
+            padding: 4px 0;
+            border-bottom: 1px solid #2d2d2d;
+            display: flex;
+            align-items: center;
+        }
+
+        .player-item:last-child {
+            border-bottom: none;
+        }
+
+        .player-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .player-name {
+            flex: 1;
+        }
+
+        .time-update {
+            animation: timeFlash 0.5s ease;
+        }
+
+        .points-update-small {
+            animation: pointsIncreaseSmall 1s ease;
+        }
+
+        .points-update-medium {
+            animation: pointsIncreaseMedium 1.5s ease;
+        }
+
+        .points-update-large {
+            animation: pointsIncreaseLarge 2s ease;
+        }
+
+        .motivation-update {
+            animation: motivationFlash 10s ease;
+        }
+
+        @keyframes timeFlash {
+            0% { color: #4a9eff; }
+            50% { color: #7ab9ff; }
+            100% { color: #4a9eff; }
+        }
+
+        @keyframes pointsIncreaseSmall {
+            0% { transform: scale(1); color: #4a9eff; }
+            50% { transform: scale(1.2); color: #7ab9ff; }
+            100% { transform: scale(1); color: #4a9eff; }
+        }
+
+        @keyframes pointsIncreaseMedium {
+            0% { transform: scale(1); color: #4a9eff; }
+            50% { transform: scale(1.5); color: #9accff; }
+            100% { transform: scale(1); color: #4a9eff; }
+        }
+
+        @keyframes pointsIncreaseLarge {
+            0% { transform: scale(1); color: #4a9eff; }
+            50% { transform: scale(2); color: #bfddff; }
+            100% { transform: scale(1); color: #4a9eff; }
+        }
+
+        @keyframes motivationFlash {
+            0% { transform: scale(0); opacity: 0; }
+            10% { transform: scale(1.2); opacity: 1; }
+            20% { transform: scale(1); }
+            30% { transform: rotate(-5deg); }
+            40% { transform: rotate(5deg); }
+            50% { transform: scale(1.1); }
+            60% { transform: scale(0.9); }
+            70% { transform: scale(1.05); }
+            80% { transform: scale(0.95); }
+            90% { transform: scale(1); opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
+
+    <script>
+    let currentPoints = 0;
+
+    function animateValue(start, end, duration, element) {
+        const range = end - start;
+        const minTimer = 50;
+        let stepTime = Math.abs(Math.floor(duration / range));
+        stepTime = Math.max(stepTime, minTimer);
+        
+        const startTime = new Date().getTime();
+        const endTime = startTime + duration;
+        
+        function run() {
+            const now = new Date().getTime();
+            const remaining = Math.max((endTime - now) / duration, 0);
+            const value = Math.round(end - (remaining * range));
+            element.textContent = value;
+            if (value != end) {
+                requestAnimationFrame(run);
+            }
+        }
+        
+        requestAnimationFrame(run);
+    }
+
+    function updateGameStats(serverTime, playerCount, points) {
+        const timeElement = document.getElementById('server-time');
+        timeElement.textContent = serverTime;
+        timeElement.classList.remove('time-update');
+        void timeElement.offsetWidth;
+        timeElement.classList.add('time-update');
+        
+        document.getElementById('player-count').textContent = playerCount;
+        
+        const pointsElement = document.getElementById('points');
+        if (points !== currentPoints) {
+            pointsElement.classList.remove('points-update-small', 'points-update-medium', 'points-update-large');
+            void pointsElement.offsetWidth;
+
+            const difference = Math.abs(points - currentPoints);
+            let animationClass;
+            let animationDuration;
+
+            if (difference < 100) {
+                animationClass = 'points-update-small';
+                animationDuration = 1000;
+            } else if (difference < 1000) {
+                animationClass = 'points-update-medium';
+                animationDuration = 1500;
+            } else {
+                animationClass = 'points-update-large';
+                animationDuration = 2000;
+            }
+
+            pointsElement.classList.add(animationClass);
+            animateValue(currentPoints, points, animationDuration, pointsElement);
+            currentPoints = points;
+        }
+    }
+    Events.Subscribe("UpdateGameStats", updateGameStats);
+
+    function updatePlayerList(count, players) {
+        const playerListElement = document.getElementById('player-list');
+        if (count > 0) {
+            playerListElement.innerHTML = players
+                .map(player => `
+                    <div class="player-item">
+                        <img class="player-icon" src="${player.icon}" alt="${player.name}'s avatar">
+                        <span class="player-name">${player.name}</span>
+                    </div>`)
+                .join('');
+        } else {
+            playerListElement.innerHTML = 'No players online';
+        }
+    }
+    Events.Subscribe("UpdatePlayerList", updatePlayerList);
+
+    function showPropInfo(name, description, value) {
+        document.getElementById('prop-name').textContent = name;
+        document.getElementById('prop-description').textContent = description;
+        document.getElementById('prop-value').textContent = value;
+        document.getElementById('prop-info').style.display = 'block';
+    }
+
+    function hidePropInfo() {
+        document.getElementById('prop-info').style.display = 'none';
+    }
+
+    Events.Subscribe("ShowPropInfo", showPropInfo);
+    Events.Subscribe("HidePropInfo", hidePropInfo);
+
+    function updateMotivation(message) {
+        const container = document.getElementById('motivation-container');
+        const motivationElement = document.getElementById('motivation-message');
+        motivationElement.textContent = message;
+        container.style.display = 'block';
+        container.classList.remove('motivation-update');
+        void container.offsetWidth;
+        container.classList.add('motivation-update');
+        
+        // Hide the container after animation ends
+        setTimeout(() => {
+            container.style.display = 'none';
+        }, 10000);
+    }
+
+    Events.Subscribe("UpdateMotivation", updateMotivation);
+    </script>
+</body>
+</html>
