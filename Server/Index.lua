@@ -2,16 +2,16 @@ GameState = {
 	TimePassed = 0,
 	Points = 0,
 	CurrentFloorMaterial = "PM_Grass", -- Default floor material
-	CurrentWeather = "Clear",          -- Default weather
-	PlayerNames = {},                  -- List of connected player names
+	CurrentWeather = "Clear",         -- Default weather
+	PlayerNames = {},                 -- List of connected player names
 }
 
 ChampionGameState = {
 	TimePassed = 0,
 	Points = 0,
 	CurrentFloorMaterial = "PM_Grass", -- Default floor material
-	CurrentWeather = "Clear",          -- Default weather
-	PlayerNames = {},                  -- List of connected player names
+	CurrentWeather = "Clear",         -- Default weather
+	PlayerNames = {},                 -- List of connected player names
 }
 
 BallToSpawn = 1
@@ -96,6 +96,13 @@ function SpawnCharacter(pos, player)
 	character:SetInvulnerable(true)
 	character:SetMaxHealth(100000000)
 	character:SetHealth(100000000)
+	character:SetFallDamageTaken(0)
+	character:SetImpactDamageTaken(0)
+	Timer.SetInterval(function()
+		if character:GetLocation().Z < ARENA_POSITION.Z - 3000 then
+			character:SetLocation(ARENA_POSITION)
+		end
+	end, 10000)
 	player:Possess(character)
 end
 
@@ -257,4 +264,3 @@ Player.Subscribe("Destroy", function(player)
 end)
 
 Package.Require("Decorations.lua")
-

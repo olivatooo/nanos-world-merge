@@ -1,16 +1,16 @@
 Package.Require("BouncyGun.lua")
 
 function RandomFloat(min, max)
-	return min + math.random() * (max - min)
+    return min + math.random() * (max - min)
 end
-
 
 function MakeItRain()
     local num_spawns = math.random(50, 100)
-    for i=1, num_spawns do
+    for i = 1, num_spawns do
         Timer.SetTimeout(function()
             if #Player.GetAll() > 0 then
-                SpawnProp(math.random(1, 3), ARENA_POSITION + Vector(math.random(-500, 500), math.random(-500, 500), math.random(-500, 500)))
+                SpawnProp(math.random(1, 3),
+                    ARENA_POSITION + Vector(math.random(-500, 500), math.random(-500, 500), math.random(-500, 500)))
                 GameState.Points = GameState.Points + 1
             end
         end, math.random(100, 1000))
@@ -26,7 +26,7 @@ function DistributeBouncyGuns()
         for k, v in pairs(Weapon.GetAll()) do
             v:Destroy()
         end
-    end, 10000)
+    end, 10000 * BallToSpawn)
 end
 
 function PropExplosion()
@@ -50,17 +50,19 @@ end
 
 function Vacuum()
     for _, prop in pairs(Prop.GetAll()) do
-        prop:TranslateTo(ARENA_POSITION + Vector(math.random(-500, 500), math.random(-500, 500), math.random(-500, 500)), 5, 0)
+        prop:TranslateTo(ARENA_POSITION + Vector(math.random(-500, 500), math.random(-500, 500), math.random(-500, 500)),
+            5, 0)
     end
 end
 
 GoodSpecialEvents = {
-    {name = "Bouncy Gun Time!", func = DistributeBouncyGuns},
-    {name = "Make it Rain!", func = MakeItRain},
-    {name = "Vacuum!", func = Vacuum},
+    { name = "Bouncy Gun Time!", func = DistributeBouncyGuns },
+    { name = "Make it Rain!",    func = MakeItRain },
+    { name = "Vacuum!",          func = Vacuum },
 }
 
 NonSenseSpecialEvents = {
-    {name = "Color Party!", func = ColorParty},
-    {name = "Prop Explosion!", func = PropExplosion}
+    { name = "Color Party!",    func = ColorParty },
+    { name = "Prop Explosion!", func = PropExplosion }
 }
+

@@ -54,7 +54,7 @@ function SpawnProp(propId, location, rotation)
         sm:SetMaterialColorParameter("Tint", Color.Random())
         prop:SetMaterialColorParameter("Tint", Color.Random())
         sm:SetCollision(CollisionType.NoCollision)
-        sm:AttachTo(prop, AttachmentRule.SnapToTarget, nil,0)
+        sm:AttachTo(prop, AttachmentRule.SnapToTarget, nil, 0)
       end
       if key == "ColorBounce" then
         local timer = Timer.SetInterval(function(_prop)
@@ -68,16 +68,17 @@ function SpawnProp(propId, location, rotation)
         Events.BroadcastRemote("PlaySound", "ave.ogg")
         -- Set material parameters to make it look like a black hole
         prop:SetMaterialScalarParameter("Metallic", 1.0)
-        prop:SetMaterialScalarParameter("Specular", 0.0) 
+        prop:SetMaterialScalarParameter("Specular", 0.0)
         prop:SetMaterialScalarParameter("Roughness", 0.0)
         prop:SetMaterialScalarParameter("Opacity", 0.7)
-        
+
         -- Set black color with slight emission
         prop:SetMaterialColorParameter("Tint", Color(0, 0, 0))
         prop:SetMaterialColorParameter("Emissive", Color(0, 0, 0))
 
-        local trigger = Trigger(location, rotation, Vector(propId*1.2 * (prop:GetScale().X * 100) * 1.1), TriggerType.Sphere, false, Color(1, 0, 0))
-        trigger:SetOverlapOnlyClasses({"Prop"})
+        local trigger = Trigger(location, rotation, Vector(propId * 1.2 * (prop:GetScale().X * 100) * 1.1),
+          TriggerType.Sphere, false, Color(1, 0, 0))
+        trigger:SetOverlapOnlyClasses({ "Prop" })
         trigger:Subscribe("BeginOverlap", function(self, other_actor)
           if other_actor then
             local current_location = other_actor:GetLocation()
@@ -109,10 +110,10 @@ function SpawnProp(propId, location, rotation)
             -- Calculate position near arena center
             local target_pos = ARENA_POSITION + Vector(
               math.random(-500, 500),
-              math.random(-500, 500), 
+              math.random(-500, 500),
               math.random(-500, 500)
             )
-            
+
             -- Move all props of this ID to the target position
             for _, p in pairs(props) do
               p:SetGravityEnabled(false)
@@ -132,7 +133,7 @@ function SpawnProp(propId, location, rotation)
   prop:SetValue("Name", propConfig.Name, true)
   prop:SetValue("Description", propConfig.Description, true)
   prop:SetValue("PropId", propId, true)
-  prop:SetScale(Vector(propId*1.017))
+  prop:SetScale(Vector(propId * 1.017))
   prop:SetGrabMode(GrabMode.Enabled)
 
   local propSize = (prop:GetScale().X * 100) * 1.1
@@ -145,11 +146,11 @@ function SpawnProp(propId, location, rotation)
     Rotator(),
     Vector(propSize), -- Default size of 100 units
     TriggerType.Sphere,
-    false, -- Enabled
-    Color(1, 0, 0) -- Red color
+    false,            -- Enabled
+    Color(1, 0, 0)    -- Red color
   )
   trigger:SetValue("prop", prop)
-  trigger:SetOverlapOnlyClasses({"Trigger"})
+  trigger:SetOverlapOnlyClasses({ "Trigger" })
   trigger:SetValue("Mergeable", true)
   trigger:SetValue("Id", propId)
   trigger:Subscribe("BeginOverlap", function(_trigger, other_triggers)
@@ -177,16 +178,16 @@ function SpawnProp(propId, location, rotation)
       Timer.SetTimeout(function()
         Events.BroadcastRemote("PlayPop", _trigger:GetLocation())
         local id = _trigger:GetValue("Id")
-        SpawnProp(id+1, half_point)
-        if (id + 1 == 7 and BallToSpawn == 1) or 
-           (id + 1 == 10 and BallToSpawn == 2) or 
-           (id + 1 == 13 and BallToSpawn == 3) or
-           (id + 1 == 16 and BallToSpawn == 4) or
-           (id + 1 == 17 and BallToSpawn == 5) or
-           (id + 1 == 19 and BallToSpawn == 6) or
-           (id + 1 == 20 and BallToSpawn == 7) or
-           (id + 1 == 22 and BallToSpawn == 8) or
-           (id + 1 == 25 and BallToSpawn == 9) then
+        SpawnProp(id + 1, half_point)
+        if (id + 1 == 7 and BallToSpawn == 1) or
+            (id + 1 == 10 and BallToSpawn == 2) or
+            (id + 1 == 13 and BallToSpawn == 3) or
+            (id + 1 == 16 and BallToSpawn == 4) or
+            (id + 1 == 17 and BallToSpawn == 5) or
+            (id + 1 == 19 and BallToSpawn == 6) or
+            (id + 1 == 20 and BallToSpawn == 7) or
+            (id + 1 == 22 and BallToSpawn == 8) or
+            (id + 1 == 25 and BallToSpawn == 9) then
           BallToSpawn = BallToSpawn + 1
           local messages = {
             "UPGRADING YOUR BALLS!",
@@ -210,11 +211,11 @@ function SpawnProp(propId, location, rotation)
         end
         my_prop:Destroy()
         other_prop:Destroy()
-        GameState.Points = GameState.Points + (2^id)
+        GameState.Points = GameState.Points + (2 ^ id)
       end, 200)
     end
   end)
-  trigger:AttachTo(prop, AttachmentRule.SnapToTarget, nil,0)
+  trigger:AttachTo(prop, AttachmentRule.SnapToTarget, nil, 0)
 
   return prop
 end
