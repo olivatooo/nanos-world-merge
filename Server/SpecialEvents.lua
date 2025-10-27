@@ -65,4 +65,3 @@ NonSenseSpecialEvents = {
     { name = "Color Party!",    func = ColorParty },
     { name = "Prop Explosion!", func = PropExplosion }
 }
-

@@ -26,56 +26,130 @@ Props = {
     Name = "nanos world",
     Description = "where it all begins",
     Mesh = "nanos-world::SM_Sphere",
-    TexturePath = "package://merge/Client/Textures/nanos.png",
-    PhysicalMaterial = "PM_Flesh"
+    TexturePath = "package://nanos-world-merge/Client/Textures/nanos.png",
+    PhysicalMaterial = "PM_Flesh",
+    sfx = "package://nanos-world-merge/Client/SFX/ave.ogg"
   },
   -- 2
   {
-    Name = "steve",
-    Description = "old and reliable steve",
+    Name = "Trippi Troppi",
+    Description =
+    "Trippi troppi, troppa trippa, tre topi trotterellano tra tromboni tritati.",
     Mesh = "nanos-world::SM_Sphere",
-    TexturePath = "package://merge/Client/Textures/steve.jpg",
-    PhysicalMaterial = "PM_Flesh"
+    TexturePath = "package://nanos-world-merge/Client/Brainrot/tripi.jpg",
+    PhysicalMaterial = "PM_Flesh",
+    sfx = "package://nanos-world-merge/Client/Brainrot/tripi.ogg"
   },
   -- 3
   {
-    Name = "thinking",
-    Description = "you really reported this as a bug?",
+    Name = "Frigo Camelo",
+    Description = "Frigo Camello, buffo fardello",
     Mesh = "nanos-world::SM_Sphere",
-    TexturePath = "package://merge/Client/Textures/thinking.png",
-    PhysicalMaterial = "PM_RubberBouncy"
+    TexturePath = "package://nanos-world-merge/Client/Brainrot/frigo.jpg",
+    PhysicalMaterial = "PM_RubberBouncy",
+    sfx = "package://nanos-world-merge/Client/Brainrot/frigo.ogg"
   },
   -- 4
   {
-    Name = "Pluto",
-    Description = "is pluto that small?",
+    Name = "Trulimero Trulicina",
+    Description = "Trulimero Trulichima, il pretiletine in piscina",
     Mesh = "nanos-world::SM_Sphere",
-    TexturePath = "package://merge/Client/Textures/pluto.jpg",
-    PhysicalMaterial = "PM_Rock"
+    TexturePath = "package://nanos-world-merge/Client/Brainrot/trulimero.jpg",
+    PhysicalMaterial = "PM_Rock",
+    sfx = "package://nanos-world-merge/Client/Brainrot/trulimero.ogg"
   },
-  -- 5
   {
-    Name = "doge",
-    Description = "wow such merge, very points, much money",
+    Name = "Cappuccino Assassino",
+    Description = "Cappu-cappu-cappuccino Assassino!",
     Mesh = "nanos-world::SM_Sphere",
-    TexturePath = "package://merge/Client/Textures/doge.png",
-    PhysicalMaterial = "PM_Flesh"
+    TexturePath = "package://nanos-world-merge/Client/Brainrot/capuccino.jpg",
+    PhysicalMaterial = "PM_Rock",
+    sfx = "package://nanos-world-merge/Client/Brainrot/capuccino.ogg"
   },
-  -- 6
   {
-    Name = "pastah",
-    Description = "why are you gae",
+    Name = "Ballerina Cappucina",
+    Description = "Ballerina Capuccina, mi mi mi miiii",
     Mesh = "nanos-world::SM_Sphere",
-    TexturePath = "package://merge/Client/Textures/gae.png",
-    PhysicalMaterial = "PM_Flesh"
+    TexturePath = "package://nanos-world-merge/Client/Brainrot/ballerina.jpg",
+    PhysicalMaterial = "PM_Rock",
+    sfx = "package://nanos-world-merge/Client/Brainrot/ballerina.ogg"
+  },
+  {
+    Name = "Brr Brr Patapim",
+    Description = "Brr, brr, Patapim, il mio cappello è pieno di Slim!",
+    Mesh = "nanos-world::SM_Sphere",
+    TexturePath = "package://nanos-world-merge/Client/Brainrot/brr.jpg",
+    PhysicalMaterial = "PM_Rock",
+    sfx = "package://nanos-world-merge/Client/Brainrot/brr.ogg"
+  },
+  {
+    Name = "U Din Din Din Din Dun Ma Din Din Din Dun ",
+    Description = "Udin Din Din Din Dun, Ma Din Din Din Dun",
+    Mesh = "nanos-world::SM_Sphere",
+    TexturePath = "package://nanos-world-merge/Client/Brainrot/din.jpg",
+    PhysicalMaterial = "PM_Flesh",
+    sfx = "package://nanos-world-merge/Client/Brainrot/din.ogg"
+  },
+  {
+    Name = "Tralalero Tralala ",
+    Description = "Tralalero Tralala, porco dio e porco Allah",
+    Mesh = "nanos-world::SM_Sphere",
+    TexturePath = "package://nanos-world-merge/Client/Brainrot/tralalero.jpg",
+    PhysicalMaterial = "PM_Glass",
+    sfx = "package://nanos-world-merge/Client/Brainrot/tralalero.ogg"
+  },
+  {
+    Name = "Bombardiro Crocodilo ",
+    Description = "Bombardiro Crocodilo ",
+    Mesh = "nanos-world::SM_Sphere",
+    TexturePath = "package://nanos-world-merge/Client/Brainrot/bombardiro.jpg",
+    PhysicalMaterial = "PM_Glass",
+    sfx = "package://nanos-world-merge/Client/Brainrot/bombardiro.ogg"
+  },
+  {
+    Name = "Tung Tung Hurar Tung Tung Tung Sahur ",
+    Description = " Tung Tung Hurar Tung Tung Tung Sahur ",
+    Mesh = "nanos-world::SM_Sphere",
+    TexturePath = "package://nanos-world-merge/Client/Brainrot/tung.jpg",
+    PhysicalMaterial = "PM_Glass",
+    sfx = "package://nanos-world-merge/Client/Brainrot/tung.ogg"
   },
   -- 7
+  -- 12
+  -- 13
+  -- {
+  --   Name = "Lucy in The Sky With Diamonds",
+  --   Description = "a girl with kaleidoscope eyes",
+  --   Mesh = "nanos-world::SM_Sphere",
+  --   TexturePath = "package://nanos-world-merge/Client/Textures/lsd.png",
+  --   PhysicalMaterial = "PM_Glass",
+  --   Custom = { "ColorBounce", true },
+  --   sfx = "package://nanos-world-merge/Client/SFX/upgrade.ogg"
+  -- },
+  -- -- 14
+  {
+    Name = "ERROR",
+    Description = "I'm sorry, I'm sorry, I'm sorry",
+    Mesh = "nanos-world::SM_Sphere",
+    Custom = { "Material", "nanos-world::M_Default_Translucent_Lit_Depth", "StaticMesh", "nanos-world::SM_Error" },
+    PhysicalMaterial = "PM_Concrete"
+  },
+  -- 15
+  {
+    Name = "SUSphere",
+    Description = "A sphere is a three-dimensional geometric shape that is perfectly round in shape.",
+    Mesh = "nanos-world::SM_Cube",
+    TexturePath = "package://nanos-world-merge/Client/Textures/sus.png",
+    PhysicalMaterial = "PM_Metal"
+  },
+  -- 16
   {
     Name = "network error",
     Description = "digital insanity, all you gonna see is",
     Mesh = "nanos-world::SM_Sphere",
     Custom = { "Material", "nanos-world::M_Wireframe", "Tint", Color(0, 1, 0, 1), "Emissive", Color(0, 10, 0, 10) },
-    PhysicalMaterial = "PM_MetalLight"
+    PhysicalMaterial = "PM_MetalLight",
+    sfx = "package://nanos-world-merge/Client/SFX/pop.ogg"
   },
   -- 8
   {
@@ -90,52 +164,9 @@ Props = {
     Name = "SYED",
     Description = "SYED PLS FIX",
     Mesh = "nanos-world::SM_Sphere",
-    TexturePath = "package://merge/Client/Textures/syed.jpg",
+    TexturePath = "package://nanos-world-merge/Client/Textures/syed.jpg",
     PhysicalMaterial = "PM_Flesh"
   },
-  -- 10
-  {
-    Name = "one of us",
-    Description = "WAIT WHO IS GOING TO BE NEXT?",
-    Mesh = "nanos-world::SM_Sphere",
-    Custom = { "Icon", true },
-    PhysicalMaterial = "PM_Plastic"
-  },
-  -- 11
-  {
-    Name = "sex",
-    Description = "i want to have sex with you",
-    Mesh = "nanos-world::SM_Sphere",
-    TexturePath = "package://merge/Client/Textures/sex.png",
-    PhysicalMaterial = "PM_Rubber"
-  },
-  -- 12
-  -- 13
-  {
-    Name = "Lucy in The Sky With Diamonds",
-    Description = "a girl with kaleidoscope eyes",
-    Mesh = "nanos-world::SM_Sphere",
-    TexturePath = "package://merge/Client/Textures/lsd.png",
-    PhysicalMaterial = "PM_Glass",
-    Custom = { "ColorBounce", true }
-  },
-  -- 14
-  {
-    Name = "ERROR",
-    Description = "I'm sorry, I'm sorry, I'm sorry",
-    Mesh = "nanos-world::SM_Sphere",
-    Custom = { "Material", "nanos-world::M_Default_Translucent_Lit_Depth", "StaticMesh", "nanos-world::SM_Error" },
-    PhysicalMaterial = "PM_Concrete"
-  },
-  -- 15
-  {
-    Name = "SUSphere",
-    Description = "A sphere is a three-dimensional geometric shape that is perfectly round in shape.",
-    Mesh = "nanos-world::SM_Cube",
-    TexturePath = "package://merge/Client/Textures/sus.png",
-    PhysicalMaterial = "PM_Metal"
-  },
-  -- 16
   {
     Name = "Super Massive Black Hole",
     Description = "that's a lot of mass",
@@ -146,9 +177,9 @@ Props = {
   -- 17
   {
     Name = "Dirac Sea",
-    Description = "merge what can be merged, static is dynamic",
+    Description = "nanos-world-merge what can be nanos-world-merged, static is dynamic",
     Mesh = "nanos-world::SM_Sphere",
-    TexturePath = "package://merge/Client/Textures/dirac.jpg",
+    TexturePath = "package://nanos-world-merge/Client/Textures/dirac.jpg",
     Custom = { "Dirac", true },
     PhysicalMaterial = "PM_Water"
   },
@@ -157,62 +188,7 @@ Props = {
     Name = "Watermelon",
     Description = "The last watermelon",
     Mesh = "nanos-world::SM_Fruit_Watermelon_01",
-    PhysicalMaterial = "PM_Rubber"
+    PhysicalMaterial = "PM_Rubber",
+    sfx = "package://nanos-world-merge/Client/SFX/pop.ogg"
   },
-  -- 19
-  {
-    Name = "Fashionista Trash Can",
-    Description = "Only accepts designer garbage",
-    Mesh = "nanos-world::SM_TrashCan",
-    TexturePath = "nanos-world::T_TrashCan_Fancy",
-    PhysicalMaterial = "PM_Metal"
-  },
-  -- 20
-  {
-    Name = "Conspiracy Theorist Antenna",
-    Description = "Claims to receive signals from cheese planets",
-    Mesh = "nanos-world::SM_Antenna",
-    TexturePath = "nanos-world::T_Antenna_Tinfoil",
-    PhysicalMaterial = "PM_MetalLight"
-  },
-  -- 21
-  {
-    Name = "Depressed Rain Cloud",
-    Description = "Rains only on itself",
-    Mesh = "nanos-world::SM_Cloud",
-    TexturePath = "nanos-world::T_Cloud_Sad",
-    PhysicalMaterial = "PM_Water"
-  },
-  -- 22
-  {
-    Name = "Stand-up Comedian Book",
-    Description = "All its jokes are about bookmarks",
-    Mesh = "nanos-world::SM_Book",
-    TexturePath = "nanos-world::T_Book_Funny",
-    PhysicalMaterial = "PM_Wood"
-  },
-  -- 23
-  {
-    Name = "Time-Traveling Sandwich",
-    Description = "Always fresh, yet somehow ancient",
-    Mesh = "nanos-world::SM_Sandwich",
-    TexturePath = "nanos-world::T_Sandwich_Time",
-    PhysicalMaterial = "PM_Plastic"
-  },
-  -- 24
-  {
-    Name = "Yoga Master Pretzel",
-    Description = "Can twist into impossible shapes",
-    Mesh = "nanos-world::SM_Pretzel",
-    TexturePath = "nanos-world::T_Pretzel_Flex",
-    PhysicalMaterial = "PM_Gravel"
-  },
-  -- 25
-  {
-    Name = "Existential Crisis Pillow",
-    Description = "Wonders if it's really comfortable",
-    Mesh = "nanos-world::SM_Pillow",
-    TexturePath = "nanos-world::T_Pillow_Deep",
-    PhysicalMaterial = "PM_Grass"
-  }
 }

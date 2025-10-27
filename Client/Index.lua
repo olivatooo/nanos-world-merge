@@ -1,6 +1,6 @@
 UI = WebUI(
-    "Awesome UI",          
-    "file://UI/Index.html"
+  "Awesome UI",
+  "file://UI/Index.html"
 )
 
 Sky.Spawn()
@@ -10,7 +10,10 @@ Input.Subscribe("KeyDown", function(key_name)
     Events.CallRemote("ReloadPackages")
   end
   if key_name == "Tab" then
-    UI:CallEvent("Shop")
+    -- Request shop data from server
+    Events.CallRemote("OpenShop")
+    -- Input.SetMouseEnabled(true)
+    -- Input.SetInputEnabled(false)
   end
 end)
 
@@ -18,9 +21,13 @@ function RandomFloat(min, max)
   return min + math.random() * (max - min)
 end
 
- 
-Events.SubscribeRemote("PlayPop", function(location)
-  Sound(location, "package://merge/Client/SFX/pop.ogg", false, true, SoundType.SFX, RandomFloat(0.8, 1.0), RandomFloat(0.7, 1.2))
+Events.SubscribeRemote("PlayPop", function(location, custom_sfx)
+  local sfx_path = "package://nanos-world-merge/Client/SFX/pop.ogg"
+  if custom_sfx then
+    sfx_path = custom_sfx
+  end
+  Sound(location, sfx_path, false, true, SoundType.SFX, RandomFloat(0.8, 1.0),
+    RandomFloat(0.7, 1.2))
 end)
 
 function ConvertToHourMinute(number)
@@ -34,7 +41,7 @@ end
 function ConvertToWeather(number)
   local weather_types = {
     WeatherType.ClearSkies,
-    WeatherType.Cloudy, 
+    WeatherType.Cloudy,
     WeatherType.Foggy,
     WeatherType.Overcast,
     WeatherType.PartlyCloudy,
@@ -47,12 +54,11 @@ function ConvertToWeather(number)
     WeatherType.SnowBlizzard,
     WeatherType.SnowLight
   }
-  
+
   local weather_index = math.floor(number / 600) % #weather_types + 1
   local weather = weather_types[weather_index]
   return weather
 end
-
 
 Events.SubscribeRemote("SetGameState", function(game_state)
   local time_passed = game_state.TimePassed
@@ -86,9 +92,9 @@ Prop.Subscribe("Grab", function(self, character)
   local local_character = Client.GetLocalPlayer():GetControlledCharacter()
   if local_character == character then
     local name = self:GetValue("Name")
-    local description = self:GetValue("Description") 
+    local description = self:GetValue("Description")
     local propId = self:GetValue("PropId")
-    UI:CallEvent("ShowPropInfo", name, description, tostring(propId^2) .. " $")
+    UI:CallEvent("ShowPropInfo", name, description, tostring(propId ^ 2) .. " $")
   end
 end)
 
@@ -100,4 +106,34 @@ end)
 
 Events.SubscribeRemote("PlaySound", function(sfx)
   Sound(Vector(), "package://merge/Client/SFX/" .. sfx, true, true, SoundType.SFX, 0.5)
+end)
+
+-- Shop Events
+Events.SubscribeRemote("ReceiveShopData", function(shop_data_json)
+  UI:CallEvent("OpenShop", shop_data_json)
+end)
+
+Events.SubscribeRemote("ShopMessage", function(message, message_type)
+  UI:CallEvent("ShowShopMessage", message, message_type)
+end)
+
+Events.SubscribeRemote("UpdatePoints", function(points)
+  UI:CallEvent("UpdatePlayerPoints", points)
+end)
+
+-- Handle purchase from UI
+UI:Subscribe("PurchaseItem", function(item_id)
+  Events.CallRemote("PurchaseItem", item_id)
+end)
+
+-- Handle close shop
+UI:Subscribe("CloseShop", function()
+  Input.SetInputEnabled(true)
+  Input.SetMouseEnabled(false)
+end)
+
+-- When shop opens, disable game input
+UI:Subscribe("ShopOpened", function()
+  Input.SetInputEnabled(false)
+  Input.SetMouseEnabled(true)
 end)

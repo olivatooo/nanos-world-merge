@@ -176,8 +176,14 @@ function SpawnProp(propId, location, rotation)
       my_prop:TranslateTo(half_point, 0.2, 0.2)
       other_prop:TranslateTo(half_point, 0.2, 0.2)
       Timer.SetTimeout(function()
-        Events.BroadcastRemote("PlayPop", _trigger:GetLocation())
         local id = _trigger:GetValue("Id")
+        local nextPropConfig = Props[id + 1]
+        -- Check if the next prop has a custom SFX defined
+        if nextPropConfig and nextPropConfig.sfx then
+          Events.BroadcastRemote("PlayPop", _trigger:GetLocation(), nextPropConfig.sfx)
+        else
+          Events.BroadcastRemote("PlayPop", _trigger:GetLocation(), nil)
+        end
         SpawnProp(id + 1, half_point)
         if (id + 1 == 7 and BallToSpawn == 1) or
             (id + 1 == 10 and BallToSpawn == 2) or

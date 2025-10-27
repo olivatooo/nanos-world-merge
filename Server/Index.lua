@@ -16,9 +16,9 @@ ChampionGameState = {
 
 BallToSpawn = 1
 
-Package.Require("Debug.lua")
 Package.Require("Merge.lua")
 Package.Require("SpecialEvents.lua")
+Package.Require("Shop.lua")
 
 Offset = 3500
 function CreateScaledCube(center, scale)
@@ -92,17 +92,18 @@ function ConfigCamera(position)
 end
 
 function SpawnCharacter(pos, player)
-	local character = Character(pos, Rotator(), "nanos-world::SK_Mannequin")
+	local character = Character(pos, Rotator(0, 0, 180))
 	character:SetInvulnerable(true)
 	character:SetMaxHealth(100000000)
 	character:SetHealth(100000000)
 	character:SetFallDamageTaken(0)
 	character:SetImpactDamageTaken(0)
-	Timer.SetInterval(function()
-		if character:GetLocation().Z < ARENA_POSITION.Z - 3000 then
-			character:SetLocation(ARENA_POSITION)
+	Timer.SetInterval(function(_character)
+		if not _character then return false end
+		if _character:GetLocation().Z < ARENA_POSITION.Z - 30000 then
+			_character:SetLocation(ARENA_POSITION)
 		end
-	end, 10000)
+	end, 10000, character)
 	player:Possess(character)
 end
 
@@ -127,7 +128,7 @@ Timer.SetInterval(function()
 		GameState.Points = GameState.Points + 1
 		ARENA:SetMaterialColorParameter("Tint", GetColorFromNumber(GameState.Points))
 	end
-end, 2000)
+end, 200)
 
 
 Timer.SetInterval(function()
@@ -151,6 +152,10 @@ ConfigCamera(ARENA_POSITION)
 
 -- Spawns and possess a Character when a Player joins the server
 Player.Subscribe("Spawn", function(player)
+	PlayerSpawn(player)
+end)
+
+function PlayerSpawn(player)
 	SpawnCharacter(ARENA_POSITION, player)
 	-- Add player to game state if not already present
 	if not GameState.Players then
@@ -176,7 +181,7 @@ Player.Subscribe("Spawn", function(player)
 			icon = playerIcon
 		})
 	end
-end)
+end
 
 function SaveData()
 	local my_file = File("GameState.json", true)
@@ -263,4 +268,21 @@ Player.Subscribe("Destroy", function(player)
 	end
 end)
 
+Events.SubscribeRemote("ReloadPackages", function()
+	Console.Log("Reloading Packages")
+	Events.BroadcastRemote("ServerLog", "Start reloading packages", "blue")
+	for k, v in pairs(Server.GetPackages(true)) do
+		Console.Log("Reloading Package: " .. v.name)
+		Chat.BroadcastMessage("Reloading Package: " .. v.name)
+		Server.ReloadPackage(v.name)
+	end
+	Timer.SetTimeout(function()
+			for k, v in pairs(Player.GetAll()) do
+				PlayerSpawn(v)
+			end
+		end,
+		2000)
+end)
+
 Package.Require("Decorations.lua")
+Package.Require("Debug.lua")

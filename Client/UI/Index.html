@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game UI</title>
 </head>
+
 <body>
     <div class="window player-list-container">
         <div class="title-bar">Players Online</div>
@@ -56,6 +58,35 @@
         </div>
     </div>
 
+    <!-- Shop UI -->
+    <div id="shop-overlay" class="shop-overlay" style="display: none;">
+        <div class="shop-container">
+            <div class="shop-header">
+                <div class="shop-title">Shop</div>
+                <div class="shop-points">
+                    <span class="shop-points-label">Your Points:</span>
+                    <span id="shop-points-value" class="shop-points-value">0</span>
+                </div>
+                <button class="shop-close-btn" onclick="closeShop()">×</button>
+            </div>
+
+            <div class="shop-message-container" id="shop-message" style="display: none;">
+                <div id="shop-message-text" class="shop-message-text"></div>
+            </div>
+
+            <div class="shop-tabs">
+                <button class="shop-tab active" data-category="all" onclick="filterCategory('all')">All Items</button>
+                <button class="shop-tab" data-category="hat" onclick="filterCategory('hat')">Hats</button>
+                <button class="shop-tab" data-category="color" onclick="filterCategory('color')">Colors</button>
+                <button class="shop-tab" data-category="effect" onclick="filterCategory('effect')">Effects</button>
+            </div>
+
+            <div class="shop-items-container" id="shop-items">
+                <div class="shop-loading">Loading shop...</div>
+            </div>
+        </div>
+    </div>
+
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -63,27 +94,27 @@
             margin: 0;
             padding: 0;
         }
-
+        
         .window {
             position: fixed;
             background: #1a1a1a;
             border: 1px solid #3c3c3c;
             border-radius: 3px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
-
+        
         .player-list-container {
             top: 10px;
             left: 10px;
             min-width: 250px;
         }
-
+        
         .game-stats-container {
             top: 10px;
             right: 10px;
             min-width: 300px;
         }
-
+        
         .motivation-container {
             bottom: 10px;
             right: 10px;
@@ -93,7 +124,7 @@
             border: 3px solid #ffd700;
             box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
         }
-
+        
         .motivation-text {
             font-size: 24px;
             text-align: center;
@@ -101,13 +132,13 @@
             color: #ffd700;
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
-
+        
         .prop-info-container {
             bottom: 10px;
             left: 10px;
             min-width: 250px;
         }
-
+        
         .title-bar {
             background: #2d2d2d;
             padding: 6px 10px;
@@ -115,214 +146,729 @@
             border-bottom: 1px solid #3c3c3c;
             user-select: none;
         }
-
+        
         .content {
             padding: 10px;
         }
-
+        
         .stat-row {
             display: flex;
             justify-content: space-between;
             padding: 4px 0;
             border-bottom: 1px solid #2d2d2d;
         }
-
+        
         .stat-row:last-child {
             border-bottom: none;
         }
-
+        
         .value {
             color: #4a9eff;
         }
-
+        
         .player-item {
             padding: 4px 0;
             border-bottom: 1px solid #2d2d2d;
             display: flex;
             align-items: center;
         }
-
+        
         .player-item:last-child {
             border-bottom: none;
         }
-
+        
         .player-icon {
             width: 32px;
             height: 32px;
             border-radius: 50%;
             margin-right: 10px;
         }
-
+        
         .player-name {
             flex: 1;
         }
-
+        
         .time-update {
             animation: timeFlash 0.5s ease;
         }
-
+        
         .points-update-small {
             animation: pointsIncreaseSmall 1s ease;
         }
-
+        
         .points-update-medium {
             animation: pointsIncreaseMedium 1.5s ease;
         }
-
+        
         .points-update-large {
             animation: pointsIncreaseLarge 2s ease;
         }
-
+        
         .motivation-update {
             animation: motivationFlash 10s ease;
         }
-
+        
         @keyframes timeFlash {
-            0% { color: #4a9eff; }
-            50% { color: #7ab9ff; }
-            100% { color: #4a9eff; }
+            0% {
+                color: #4a9eff;
+            }
+            50% {
+                color: #7ab9ff;
+            }
+            100% {
+                color: #4a9eff;
+            }
         }
-
+        
         @keyframes pointsIncreaseSmall {
-            0% { transform: scale(1); color: #4a9eff; }
-            50% { transform: scale(1.2); color: #7ab9ff; }
-            100% { transform: scale(1); color: #4a9eff; }
+            0% {
+                transform: scale(1);
+                color: #4a9eff;
+            }
+            50% {
+                transform: scale(1.2);
+                color: #7ab9ff;
+            }
+            100% {
+                transform: scale(1);
+                color: #4a9eff;
+            }
         }
-
+        
         @keyframes pointsIncreaseMedium {
-            0% { transform: scale(1); color: #4a9eff; }
-            50% { transform: scale(1.5); color: #9accff; }
-            100% { transform: scale(1); color: #4a9eff; }
+            0% {
+                transform: scale(1);
+                color: #4a9eff;
+            }
+            50% {
+                transform: scale(1.5);
+                color: #9accff;
+            }
+            100% {
+                transform: scale(1);
+                color: #4a9eff;
+            }
         }
-
+        
         @keyframes pointsIncreaseLarge {
-            0% { transform: scale(1); color: #4a9eff; }
-            50% { transform: scale(2); color: #bfddff; }
-            100% { transform: scale(1); color: #4a9eff; }
+            0% {
+                transform: scale(1);
+                color: #4a9eff;
+            }
+            50% {
+                transform: scale(2);
+                color: #bfddff;
+            }
+            100% {
+                transform: scale(1);
+                color: #4a9eff;
+            }
         }
-
+        
         @keyframes motivationFlash {
-            0% { transform: scale(0); opacity: 0; }
-            10% { transform: scale(1.2); opacity: 1; }
-            20% { transform: scale(1); }
-            30% { transform: rotate(-5deg); }
-            40% { transform: rotate(5deg); }
-            50% { transform: scale(1.1); }
-            60% { transform: scale(0.9); }
-            70% { transform: scale(1.05); }
-            80% { transform: scale(0.95); }
-            90% { transform: scale(1); opacity: 1; }
-            100% { opacity: 0; }
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            10% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            20% {
+                transform: scale(1);
+            }
+            30% {
+                transform: rotate(-5deg);
+            }
+            40% {
+                transform: rotate(5deg);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            60% {
+                transform: scale(0.9);
+            }
+            70% {
+                transform: scale(1.05);
+            }
+            80% {
+                transform: scale(0.95);
+            }
+            90% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+        /* Shop Styles */
+        
+        .shop-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .shop-container {
+            background: linear-gradient(145deg, #1a1a1a 0%, #2d2d2d 100%);
+            border: 2px solid #4a9eff;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 1200px;
+            height: 80%;
+            max-height: 800px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 50px rgba(74, 158, 255, 0.3);
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .shop-header {
+            background: linear-gradient(90deg, #2d2d2d 0%, #3c3c3c 100%);
+            padding: 20px;
+            border-bottom: 2px solid #4a9eff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 13px 13px 0 0;
+        }
+        
+        .shop-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4a9eff;
+            text-shadow: 0 0 10px rgba(74, 158, 255, 0.5);
+        }
+        
+        .shop-points {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+        }
+        
+        .shop-points-label {
+            color: #e1e1e1;
+        }
+        
+        .shop-points-value {
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 24px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        .shop-close-btn {
+            background: #ff4444;
+            border: none;
+            color: white;
+            font-size: 32px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+        
+        .shop-close-btn:hover {
+            background: #ff6666;
+            transform: scale(1.1);
+        }
+        
+        .shop-message-container {
+            padding: 15px 20px;
+            margin: 10px 20px;
+            border-radius: 8px;
+            animation: messageSlide 0.3s ease;
+        }
+        
+        @keyframes messageSlide {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .shop-message-container.success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid #4caf50;
+        }
+        
+        .shop-message-container.error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 2px solid #f44336;
+        }
+        
+        .shop-message-container.warning {
+            background: rgba(255, 152, 0, 0.2);
+            border: 2px solid #ff9800;
+        }
+        
+        .shop-message-text {
+            color: #e1e1e1;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        .shop-tabs {
+            display: flex;
+            gap: 10px;
+            padding: 20px 20px 10px 20px;
+            border-bottom: 1px solid #3c3c3c;
+        }
+        
+        .shop-tab {
+            padding: 10px 20px;
+            background: #2d2d2d;
+            border: 1px solid #3c3c3c;
+            border-radius: 8px;
+            color: #e1e1e1;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 16px;
+        }
+        
+        .shop-tab:hover {
+            background: #3c3c3c;
+            border-color: #4a9eff;
+        }
+        
+        .shop-tab.active {
+            background: #4a9eff;
+            border-color: #4a9eff;
+            color: white;
+        }
+        
+        .shop-items-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            align-content: start;
+        }
+        
+        .shop-loading {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            font-size: 20px;
+            color: #4a9eff;
+        }
+        
+        .shop-item {
+            background: linear-gradient(145deg, #2d2d2d 0%, #3c3c3c 100%);
+            border: 2px solid #3c3c3c;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .shop-item:hover {
+            border-color: #4a9eff;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(74, 158, 255, 0.3);
+        }
+        
+        .shop-item.owned {
+            border-color: #4caf50;
+            opacity: 0.7;
+        }
+        
+        .shop-item.owned::before {
+            content: "✓ OWNED";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #4caf50;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .shop-item {
+            position: relative;
+        }
+        
+        .shop-item-category {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(74, 158, 255, 0.3);
+            color: #4a9eff;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        
+        .shop-item-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #e1e1e1;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+        
+        .shop-item-description {
+            color: #b0b0b0;
+            font-size: 14px;
+            margin-bottom: 15px;
+            flex: 1;
+        }
+        
+        .shop-item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+        
+        .shop-item-price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+        }
+        
+        .shop-buy-btn {
+            padding: 10px 20px;
+            background: linear-gradient(145deg, #4a9eff 0%, #357abd 100%);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .shop-buy-btn:hover {
+            background: linear-gradient(145deg, #5aafff 0%, #4a9eff 100%);
+            transform: scale(1.05);
+        }
+        
+        .shop-buy-btn:disabled {
+            background: #555;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .shop-item.owned .shop-buy-btn {
+            background: #4caf50;
+            cursor: default;
+        }
+        
+        .shop-item.owned .shop-buy-btn:hover {
+            background: #4caf50;
+            transform: none;
+        }
+        /* Scrollbar styling */
+        
+        .shop-items-container::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        .shop-items-container::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 5px;
+        }
+        
+        .shop-items-container::-webkit-scrollbar-thumb {
+            background: #4a9eff;
+            border-radius: 5px;
+        }
+        
+        .shop-items-container::-webkit-scrollbar-thumb:hover {
+            background: #5aafff;
         }
     </style>
 
     <script>
-    let currentPoints = 0;
+        let currentPoints = 0;
 
-    function animateValue(start, end, duration, element) {
-        const range = end - start;
-        const minTimer = 50;
-        let stepTime = Math.abs(Math.floor(duration / range));
-        stepTime = Math.max(stepTime, minTimer);
-        
-        const startTime = new Date().getTime();
-        const endTime = startTime + duration;
-        
-        function run() {
-            const now = new Date().getTime();
-            const remaining = Math.max((endTime - now) / duration, 0);
-            const value = Math.round(end - (remaining * range));
-            element.textContent = value;
-            if (value != end) {
-                requestAnimationFrame(run);
-            }
-        }
-        
-        requestAnimationFrame(run);
-    }
+        function animateValue(start, end, duration, element) {
+            const range = end - start;
+            const minTimer = 50;
+            let stepTime = Math.abs(Math.floor(duration / range));
+            stepTime = Math.max(stepTime, minTimer);
 
-    function updateGameStats(serverTime, playerCount, points) {
-        const timeElement = document.getElementById('server-time');
-        timeElement.textContent = serverTime;
-        timeElement.classList.remove('time-update');
-        void timeElement.offsetWidth;
-        timeElement.classList.add('time-update');
-        
-        document.getElementById('player-count').textContent = playerCount;
-        
-        const pointsElement = document.getElementById('points');
-        if (points !== currentPoints) {
-            pointsElement.classList.remove('points-update-small', 'points-update-medium', 'points-update-large');
-            void pointsElement.offsetWidth;
+            const startTime = new Date().getTime();
+            const endTime = startTime + duration;
 
-            const difference = Math.abs(points - currentPoints);
-            let animationClass;
-            let animationDuration;
-
-            if (difference < 100) {
-                animationClass = 'points-update-small';
-                animationDuration = 1000;
-            } else if (difference < 1000) {
-                animationClass = 'points-update-medium';
-                animationDuration = 1500;
-            } else {
-                animationClass = 'points-update-large';
-                animationDuration = 2000;
+            function run() {
+                const now = new Date().getTime();
+                const remaining = Math.max((endTime - now) / duration, 0);
+                const value = Math.round(end - (remaining * range));
+                element.textContent = value;
+                if (value != end) {
+                    requestAnimationFrame(run);
+                }
             }
 
-            pointsElement.classList.add(animationClass);
-            animateValue(currentPoints, points, animationDuration, pointsElement);
-            currentPoints = points;
+            requestAnimationFrame(run);
         }
-    }
-    Events.Subscribe("UpdateGameStats", updateGameStats);
 
-    function updatePlayerList(count, players) {
-        const playerListElement = document.getElementById('player-list');
-        if (count > 0) {
-            playerListElement.innerHTML = players
-                .map(player => `
+        function updateGameStats(serverTime, playerCount, points) {
+            const timeElement = document.getElementById('server-time');
+            timeElement.textContent = serverTime;
+            timeElement.classList.remove('time-update');
+            void timeElement.offsetWidth;
+            timeElement.classList.add('time-update');
+
+            document.getElementById('player-count').textContent = playerCount;
+
+            const pointsElement = document.getElementById('points');
+            if (points !== currentPoints) {
+                pointsElement.classList.remove('points-update-small', 'points-update-medium', 'points-update-large');
+                void pointsElement.offsetWidth;
+
+                const difference = Math.abs(points - currentPoints);
+                let animationClass;
+                let animationDuration;
+
+                if (difference < 100) {
+                    animationClass = 'points-update-small';
+                    animationDuration = 1000;
+                } else if (difference < 1000) {
+                    animationClass = 'points-update-medium';
+                    animationDuration = 1500;
+                } else {
+                    animationClass = 'points-update-large';
+                    animationDuration = 2000;
+                }
+
+                pointsElement.classList.add(animationClass);
+                animateValue(currentPoints, points, animationDuration, pointsElement);
+                currentPoints = points;
+            }
+        }
+        Events.Subscribe("UpdateGameStats", updateGameStats);
+
+        function updatePlayerList(count, players) {
+            const playerListElement = document.getElementById('player-list');
+            if (count > 0) {
+                playerListElement.innerHTML = players
+                    .map(player => `
                     <div class="player-item">
                         <img class="player-icon" src="${player.icon}" alt="${player.name}'s avatar">
                         <span class="player-name">${player.name}</span>
                     </div>`)
-                .join('');
-        } else {
-            playerListElement.innerHTML = 'No players online';
+                    .join('');
+            } else {
+                playerListElement.innerHTML = 'No players online';
+            }
         }
-    }
-    Events.Subscribe("UpdatePlayerList", updatePlayerList);
+        Events.Subscribe("UpdatePlayerList", updatePlayerList);
 
-    function showPropInfo(name, description, value) {
-        document.getElementById('prop-name').textContent = name;
-        document.getElementById('prop-description').textContent = description;
-        document.getElementById('prop-value').textContent = value;
-        document.getElementById('prop-info').style.display = 'block';
-    }
+        function showPropInfo(name, description, value) {
+            document.getElementById('prop-name').textContent = name;
+            document.getElementById('prop-description').textContent = description;
+            document.getElementById('prop-value').textContent = value;
+            document.getElementById('prop-info').style.display = 'block';
+        }
 
-    function hidePropInfo() {
-        document.getElementById('prop-info').style.display = 'none';
-    }
+        function hidePropInfo() {
+            document.getElementById('prop-info').style.display = 'none';
+        }
 
-    Events.Subscribe("ShowPropInfo", showPropInfo);
-    Events.Subscribe("HidePropInfo", hidePropInfo);
+        Events.Subscribe("ShowPropInfo", showPropInfo);
+        Events.Subscribe("HidePropInfo", hidePropInfo);
 
-    function updateMotivation(message) {
-        const container = document.getElementById('motivation-container');
-        const motivationElement = document.getElementById('motivation-message');
-        motivationElement.textContent = message;
-        container.style.display = 'block';
-        container.classList.remove('motivation-update');
-        void container.offsetWidth;
-        container.classList.add('motivation-update');
-        
-        // Hide the container after animation ends
-        setTimeout(() => {
-            container.style.display = 'none';
-        }, 10000);
-    }
+        function updateMotivation(message) {
+            const container = document.getElementById('motivation-container');
+            const motivationElement = document.getElementById('motivation-message');
+            motivationElement.textContent = message;
+            container.style.display = 'block';
+            container.classList.remove('motivation-update');
+            void container.offsetWidth;
+            container.classList.add('motivation-update');
 
-    Events.Subscribe("UpdateMotivation", updateMotivation);
+            // Hide the container after animation ends
+            setTimeout(() => {
+                container.style.display = 'none';
+            }, 10000);
+        }
+
+        Events.Subscribe("UpdateMotivation", updateMotivation);
+
+        // Shop Functionality
+        let shopData = null;
+        let currentCategory = 'all';
+
+        function openShop(shopDataJson) {
+            try {
+                shopData = JSON.parse(shopDataJson);
+                currentCategory = 'all';
+
+                // Update points display
+                document.getElementById('shop-points-value').textContent = shopData.player_points;
+                currentPoints = shopData.player_points;
+
+                // Render items
+                renderShopItems();
+
+                // Show shop overlay
+                document.getElementById('shop-overlay').style.display = 'flex';
+
+                // Notify client to disable input
+                Events.Call("ShopOpened");
+            } catch (error) {
+                console.error("Error opening shop:", error);
+            }
+        }
+        Events.Subscribe("OpenShop", openShop);
+
+        function closeShop() {
+            document.getElementById('shop-overlay').style.display = 'none';
+            Events.Call("CloseShop");
+        }
+
+        function filterCategory(category) {
+            currentCategory = category;
+
+            // Update active tab
+            document.querySelectorAll('.shop-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Re-render items
+            renderShopItems();
+        }
+
+        function renderShopItems() {
+            if (!shopData) return;
+
+            const container = document.getElementById('shop-items');
+
+            // Filter items by category
+            let items = shopData.items;
+            if (currentCategory !== 'all') {
+                items = items.filter(item => item.category === currentCategory);
+            }
+
+            if (items.length === 0) {
+                container.innerHTML = '<div class="shop-loading">No items in this category</div>';
+                return;
+            }
+
+            // Render items
+            container.innerHTML = items.map(item => {
+                const isOwned = shopData.owned_items.includes(item.id);
+                const canAfford = shopData.player_points >= item.price;
+
+                return `
+                <div class="shop-item ${isOwned ? 'owned' : ''}" data-item-id="${item.id}">
+                    <div class="shop-item-category">${item.category}</div>
+                    <div class="shop-item-name">${item.name}</div>
+                    <div class="shop-item-description">${item.description}</div>
+                    <div class="shop-item-footer">
+                        <div class="shop-item-price">${item.price} pts</div>
+                        <button class="shop-buy-btn" 
+                                onclick="purchaseItem('${item.id}')"
+                                ${isOwned || !canAfford ? 'disabled' : ''}>
+                            ${isOwned ? 'Owned' : (canAfford ? 'Buy' : 'Can\'t Afford')}
+                        </button>
+                    </div>
+                </div>
+            `;
+            }).join('');
+        }
+
+        function purchaseItem(itemId) {
+            Events.Call("PurchaseItem", itemId);
+        }
+
+        function showShopMessage(message, messageType) {
+            const container = document.getElementById('shop-message');
+            const textElement = document.getElementById('shop-message-text');
+
+            // Remove previous message type classes
+            container.classList.remove('success', 'error', 'warning');
+
+            // Add new message type class
+            container.classList.add(messageType);
+
+            // Set message text
+            textElement.textContent = message;
+
+            // Show message
+            container.style.display = 'block';
+
+            // Hide after 3 seconds
+            setTimeout(() => {
+                container.style.display = 'none';
+            }, 3000);
+        }
+        Events.Subscribe("ShowShopMessage", showShopMessage);
+
+        function updatePlayerPoints(points) {
+            if (shopData) {
+                shopData.player_points = points;
+                document.getElementById('shop-points-value').textContent = points;
+                renderShopItems();
+            }
+
+            // Also update main UI points
+            document.getElementById('points').textContent = points;
+            currentPoints = points;
+        }
+        Events.Subscribe("UpdatePlayerPoints", updatePlayerPoints);
+
+        // Close shop on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && document.getElementById('shop-overlay').style.display === 'flex') {
+                closeShop();
+            }
+        });
     </script>
 </body>
+
 </html>
