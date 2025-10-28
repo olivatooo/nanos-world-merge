@@ -128,7 +128,7 @@ Timer.SetInterval(function()
 		GameState.Points = GameState.Points + 1
 		ARENA:SetMaterialColorParameter("Tint", GetColorFromNumber(GameState.Points))
 	end
-end, 2000)
+end, 2000 - (75 * #Player.GetAll()))
 
 
 Timer.SetInterval(function()

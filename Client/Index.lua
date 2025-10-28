@@ -6,9 +6,9 @@ UI = WebUI(
 Sky.Spawn()
 
 Input.Subscribe("KeyDown", function(key_name)
-  if key_name == "P" then
-    Events.CallRemote("ReloadPackages")
-  end
+  -- if key_name == "P" then
+  --   Events.CallRemote("ReloadPackages")
+  -- end
   if key_name == "Tab" then
     -- Request shop data from server
     Events.CallRemote("OpenShop")

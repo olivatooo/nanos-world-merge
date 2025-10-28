@@ -12,8 +12,8 @@ ShopItems = {
         apply = function(character)
             local hat = StaticMesh(
                 Vector(0, 0, 95),
-                Rotator(0, 90, 0),
-                "nanos-world::SM_Cone",
+                Rotator(0, 0, 0),
+                "nanos-world::SM_Hat",
                 CollisionType.NoCollision
             )
             hat:SetScale(Vector(0.5, 0.5, 1.2))
@@ -31,7 +31,7 @@ ShopItems = {
         apply = function(character)
             local crown = StaticMesh(
                 Vector(0, 0, 100),
-                Rotator(0, 0, 90),
+                Rotator(0, 90, 0),
                 "nanos-world::SM_Cone",
                 CollisionType.NoCollision
             )
@@ -52,7 +52,7 @@ ShopItems = {
         apply = function(character)
             local halo = StaticMesh(
                 Vector(0, 0, 110),
-                Rotator(90, 0, 0),
+                Rotator(0, 0, 0),
                 "nanos-world::SM_Torus",
                 CollisionType.NoCollision
             )
@@ -78,7 +78,7 @@ ShopItems = {
             )
             cube:SetScale(Vector(0.5, 0.5, 0.5))
             cube:SetMaterialColorParameter("Tint", Color.Random())
-            cube:SetMaterialTextureParameter("Texture", "package://nanos-world-merge/Client/Textures/thinking.jpg")
+            cube:SetMaterialTextureParameter("Texture", "package://nanos-world-merge/Client/Textures/thinking.png")
             -- Rotate the cube continuously
             Timer.SetInterval(function()
                 if cube:IsValid() then
