@@ -21,7 +21,6 @@ PhysicalMaterials = {
 
 
 Props = {
-  -- 1
   {
     Name = "nanos world",
     Description = "where it all begins",
@@ -57,6 +56,14 @@ Props = {
     TexturePath = "package://nanos-world-merge/Client/Brainrot/trulimero.jpg",
     PhysicalMaterial = "PM_Rock",
     sfx = "package://nanos-world-merge/Client/Brainrot/trulimero.ogg"
+  },
+  {
+    Name = "Bombardiro Crocodilo",
+    Description = "Bombardiro Crocodilo ",
+    Mesh = "nanos-world::SM_Sphere",
+    TexturePath = "package://nanos-world-merge/Client/Brainrot/bombardiro.jpg",
+    PhysicalMaterial = "PM_Glass",
+    sfx = "package://nanos-world-merge/Client/Brainrot/bombardiro.ogg"
   },
   {
     Name = "Cappuccino Assassino",
@@ -99,20 +106,21 @@ Props = {
     sfx = "package://nanos-world-merge/Client/Brainrot/tralalero.ogg"
   },
   {
-    Name = "Bombardiro Crocodilo ",
-    Description = "Bombardiro Crocodilo ",
-    Mesh = "nanos-world::SM_Sphere",
-    TexturePath = "package://nanos-world-merge/Client/Brainrot/bombardiro.jpg",
-    PhysicalMaterial = "PM_Glass",
-    sfx = "package://nanos-world-merge/Client/Brainrot/bombardiro.ogg"
-  },
-  {
     Name = "Tung Tung Hurar Tung Tung Tung Sahur ",
     Description = " Tung Tung Hurar Tung Tung Tung Sahur ",
     Mesh = "nanos-world::SM_Sphere",
     TexturePath = "package://nanos-world-merge/Client/Brainrot/tung.jpg",
     PhysicalMaterial = "PM_Glass",
     sfx = "package://nanos-world-merge/Client/Brainrot/tung.ogg"
+  },
+  {
+    Name = "Bug Bug Syed Bug Bug",
+    Description = "SYED PLS FIX",
+    Mesh = "nanos-world::SM_Sphere",
+    TexturePath = "package://nanos-world-merge/Client/Textures/syed.jpg",
+    PhysicalMaterial = "PM_Flesh",
+    Custom = { "ColorBounce", true },
+    sfx = "package://nanos-world-merge/Client/Brainrot/bug.ogg"
   },
   -- 7
   -- 12
@@ -127,22 +135,17 @@ Props = {
   --   sfx = "package://nanos-world-merge/Client/SFX/upgrade.ogg"
   -- },
   -- -- 14
-  {
-    Name = "ERROR",
-    Description = "I'm sorry, I'm sorry, I'm sorry",
-    Mesh = "nanos-world::SM_Sphere",
-    Custom = { "Material", "nanos-world::M_Default_Translucent_Lit_Depth", "StaticMesh", "nanos-world::SM_Error" },
-    PhysicalMaterial = "PM_Concrete"
-  },
   -- 15
+  --
+  --
   {
     Name = "SUSphere",
     Description = "A sphere is a three-dimensional geometric shape that is perfectly round in shape.",
     Mesh = "nanos-world::SM_Cube",
     TexturePath = "package://nanos-world-merge/Client/Textures/sus.png",
-    PhysicalMaterial = "PM_Metal"
+    PhysicalMaterial = "PM_Metal",
+    sfx = "package://nanos-world-merge/Client/SFX/amogus.ogg"
   },
-  -- 16
   {
     Name = "network error",
     Description = "digital insanity, all you gonna see is",
@@ -151,21 +154,19 @@ Props = {
     PhysicalMaterial = "PM_MetalLight",
     sfx = "package://nanos-world-merge/Client/SFX/pop.ogg"
   },
-  -- 8
+  {
+    Name = "ERROR",
+    Description = "I'm sorry, I'm sorry, I'm sorry",
+    Mesh = "nanos-world::SM_Sphere",
+    Custom = { "Material", "nanos-world::M_Default_Translucent_Lit_Depth", "StaticMesh", "nanos-world::SM_Error" },
+    PhysicalMaterial = "PM_Concrete"
+  },
   {
     Name = "The Shining",
     Description = "Sometimes I wonder if this was a good idea",
     Mesh = "nanos-world::SM_Sphere",
     Custom = { "Tint", Color(10, 10, 0, 1), "Emissive", Color(10, 10, 0, 10) },
     PhysicalMaterial = "PM_Glass"
-  },
-  -- 9
-  {
-    Name = "SYED",
-    Description = "SYED PLS FIX",
-    Mesh = "nanos-world::SM_Sphere",
-    TexturePath = "package://nanos-world-merge/Client/Textures/syed.jpg",
-    PhysicalMaterial = "PM_Flesh"
   },
   {
     Name = "Super Massive Black Hole",
@@ -174,21 +175,19 @@ Props = {
     Custom = { "BlackHole", true },
     PhysicalMaterial = "PM_MetalLight"
   },
-  -- 17
   {
     Name = "Dirac Sea",
-    Description = "nanos-world-merge what can be nanos-world-merged, static is dynamic",
+    Description = "Merge what can be merged",
     Mesh = "nanos-world::SM_Sphere",
     TexturePath = "package://nanos-world-merge/Client/Textures/dirac.jpg",
     Custom = { "Dirac", true },
     PhysicalMaterial = "PM_Water"
   },
-  -- 18
   {
     Name = "Watermelon",
     Description = "The last watermelon",
     Mesh = "nanos-world::SM_Fruit_Watermelon_01",
     PhysicalMaterial = "PM_Rubber",
-    sfx = "package://nanos-world-merge/Client/SFX/pop.ogg"
+    sfx = "package://nanos-world-merge/Client/SFX/end.ogg",
   },
 }

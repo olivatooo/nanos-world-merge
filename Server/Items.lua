@@ -76,7 +76,7 @@ ShopItems = {
                 "nanos-world::SM_Cube",
                 CollisionType.NoCollision
             )
-            cube:SetScale(Vector(0.75, 0.75, 0.75))
+            cube:SetScale(Vector(0.5, 0.5, 0.5))
             cube:SetMaterialColorParameter("Tint", Color.Random())
             cube:SetMaterialTextureParameter("Texture", "package://nanos-world-merge/Client/Textures/thinking.jpg")
             -- Rotate the cube continuously
