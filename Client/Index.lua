@@ -25,6 +25,8 @@ Events.SubscribeRemote("PlayPop", function(location, custom_sfx)
   local sfx_path = "package://nanos-world-merge/Client/SFX/pop.ogg"
   if custom_sfx then
     sfx_path = custom_sfx
+    Sound(location, sfx_path, false, true, SoundType.SFX)
+    return
   end
   Sound(location, sfx_path, false, true, SoundType.SFX, RandomFloat(0.8, 1.0),
     RandomFloat(0.7, 1.2))

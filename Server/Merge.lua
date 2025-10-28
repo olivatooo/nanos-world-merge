@@ -214,6 +214,8 @@ function SpawnProp(propId, location, rotation)
           }
           local message = messages[math.random(#messages)]
           Events.BroadcastRemote("UpdateMotivation", message)
+          local event = NonSenseSpecialEvents[math.random(1, #NonSenseSpecialEvents)]
+          event.func()
         end
         my_prop:Destroy()
         other_prop:Destroy()

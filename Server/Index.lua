@@ -128,19 +128,19 @@ Timer.SetInterval(function()
 		GameState.Points = GameState.Points + 1
 		ARENA:SetMaterialColorParameter("Tint", GetColorFromNumber(GameState.Points))
 	end
-end, 200)
+end, 2000)
 
 
 Timer.SetInterval(function()
 	if #Player.GetAll() > 0 then
 		GameState.TimePassed = GameState.TimePassed + 1
 		Events.BroadcastRemote("SetGameState", GameState)
-		if GameState.TimePassed % 600 == 0 then
+		if GameState.TimePassed % 60 == 0 then
 			local event = GoodSpecialEvents[math.random(1, #GoodSpecialEvents)]
 			Events.BroadcastRemote("UpdateMotivation", event.name)
 			event.func()
 		end
-		if GameState.TimePassed % 700 == 0 then
+		if GameState.TimePassed % 70 == 0 then
 			local event = NonSenseSpecialEvents[math.random(1, #NonSenseSpecialEvents)]
 			Events.BroadcastRemote("UpdateMotivation", event.name)
 			event.func()
@@ -268,21 +268,6 @@ Player.Subscribe("Destroy", function(player)
 	end
 end)
 
-Events.SubscribeRemote("ReloadPackages", function()
-	Console.Log("Reloading Packages")
-	Events.BroadcastRemote("ServerLog", "Start reloading packages", "blue")
-	for k, v in pairs(Server.GetPackages(true)) do
-		Console.Log("Reloading Package: " .. v.name)
-		Chat.BroadcastMessage("Reloading Package: " .. v.name)
-		Server.ReloadPackage(v.name)
-	end
-	Timer.SetTimeout(function()
-			for k, v in pairs(Player.GetAll()) do
-				PlayerSpawn(v)
-			end
-		end,
-		2000)
-end)
 
 Package.Require("Decorations.lua")
 Package.Require("Debug.lua")

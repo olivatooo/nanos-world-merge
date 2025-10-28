@@ -1,1 +1,17 @@
 -- REMOVES DEBUG
+--
+-- Events.SubscribeRemote("ReloadPackages", function()
+-- 	Console.Log("Reloading Packages")
+-- 	Events.BroadcastRemote("ServerLog", "Start reloading packages", "blue")
+-- 	for k, v in pairs(Server.GetPackages(true)) do
+-- 		Console.Log("Reloading Package: " .. v.name)
+-- 		Chat.BroadcastMessage("Reloading Package: " .. v.name)
+-- 		Server.ReloadPackage(v.name)
+-- 	end
+-- 	Timer.SetTimeout(function()
+-- 			for k, v in pairs(Player.GetAll()) do
+-- 				PlayerSpawn(v)
+-- 			end
+-- 		end,
+-- 		2000)
+-- end)
