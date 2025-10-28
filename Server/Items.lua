@@ -129,7 +129,7 @@ ShopItems = {
         price = 10000,
         category = "color",
         apply = function(character)
-            character:SetMaterialColorParameter("Tint", Color(1000, 1, 1))
+            character:SetMaterialColorParameter("Tint", Color(1000, 0, 0))
         end
     },
     {

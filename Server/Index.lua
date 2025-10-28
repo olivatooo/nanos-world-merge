@@ -126,6 +126,8 @@ Timer.SetInterval(function()
 			ARENA_POSITION + Vector(math.random(-500, 500), math.random(-500, 500), math.random(-500, 500)))
 		-- SpawnProp(16, ARENA_POSITION + Vector(math.random(-500, 500), math.random(-500, 500), math.random(-500, 500)))
 		GameState.Points = GameState.Points + 1
+		-- Award points to all players individually
+		AwardAllPlayersPoints(1)
 		ARENA:SetMaterialColorParameter("Tint", GetColorFromNumber(GameState.Points))
 	end
 end, 2000 - (75 * #Player.GetAll()))
@@ -135,12 +137,12 @@ Timer.SetInterval(function()
 	if #Player.GetAll() > 0 then
 		GameState.TimePassed = GameState.TimePassed + 1
 		Events.BroadcastRemote("SetGameState", GameState)
-		if GameState.TimePassed % 350 == 0 then
+		if GameState.TimePassed % math.random(60, 350) == 0 then
 			local event = GoodSpecialEvents[math.random(1, #GoodSpecialEvents)]
 			Events.BroadcastRemote("UpdateMotivation", event.name)
 			event.func()
 		end
-		if GameState.TimePassed % 250 == 0 then
+		if GameState.TimePassed % math.random(60, 250) == 0 then
 			local event = NonSenseSpecialEvents[math.random(1, #NonSenseSpecialEvents)]
 			Events.BroadcastRemote("UpdateMotivation", event.name)
 			event.func()

@@ -220,6 +220,8 @@ function SpawnProp(propId, location, rotation)
         my_prop:Destroy()
         other_prop:Destroy()
         GameState.Points = GameState.Points + (2 ^ id)
+        -- Award points to all players individually
+        AwardAllPlayersPoints(2 ^ id)
       end, 200)
     end
   end)

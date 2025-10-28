@@ -78,9 +78,29 @@ end
 
 -- Get player's current points
 function GetPlayerPoints(player)
-    -- Return the player's share of global points
-    -- For simplicity, we'll use the global GameState.Points
-    return GameState.Points or 0
+    local steam_id = player:GetAccountID()
+    if not PlayerShopData[steam_id] then
+        InitializePlayerShopData(player)
+    end
+    return PlayerShopData[steam_id].points or 0
+end
+
+-- Award points to a player
+function AwardPlayerPoints(player, points)
+    local steam_id = player:GetAccountID()
+    if not PlayerShopData[steam_id] then
+        InitializePlayerShopData(player)
+    end
+    PlayerShopData[steam_id].points = PlayerShopData[steam_id].points + points
+    -- Notify the client of updated points
+    Events.CallRemote("UpdatePoints", player, PlayerShopData[steam_id].points)
+end
+
+-- Award points to all players
+function AwardAllPlayersPoints(points)
+    for _, player in pairs(Player.GetAll()) do
+        AwardPlayerPoints(player, points)
+    end
 end
 
 -- Purchase an item
@@ -106,8 +126,8 @@ function PurchaseItem(player, item_id)
         return false
     end
 
-    -- Deduct points from global state
-    GameState.Points = GameState.Points - item.price
+    -- Deduct points from player's individual balance
+    PlayerShopData[steam_id].points = PlayerShopData[steam_id].points - item.price
 
     -- Add item to player's inventory
     table.insert(PlayerShopData[steam_id].purchased_items, item_id)
@@ -123,7 +143,7 @@ function PurchaseItem(player, item_id)
 
     -- Update client
     Events.CallRemote("ShopMessage", player, "Successfully purchased " .. item.name .. "!", "success")
-    Events.CallRemote("UpdatePoints", player, GameState.Points)
+    Events.CallRemote("UpdatePoints", player, PlayerShopData[steam_id].points)
 
     -- Broadcast to all players
     Chat.BroadcastMessage(player:GetAccountName() .. " purchased " .. item.name .. "!")
@@ -242,6 +262,11 @@ end)
 Player.Subscribe("Spawn", function(player)
     LoadPlayerShopData(player)
     RestorePlayerItems(player)
+    -- Send initial points to player
+    Timer.SetTimeout(function()
+        local points = GetPlayerPoints(player)
+        Events.CallRemote("UpdatePoints", player, points)
+    end, 1000)
 end)
 
 -- Save data when player leaves
