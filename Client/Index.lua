@@ -101,13 +101,13 @@ Prop.Subscribe("Grab", function(self, character)
 end)
 
 Events.SubscribeRemote("UpdateMotivation", function(message)
-  Sound(Vector(), "package://merge/Client/SFX/upgrade.ogg", true, true, SoundType.SFX, 0.5)
+  Sound(Vector(), "package://nanos-world-merge/Client/SFX/upgrade.ogg", true, true, SoundType.SFX, 0.5)
   UI:CallEvent("UpdateMotivation", message)
 end)
 
 
 Events.SubscribeRemote("PlaySound", function(sfx)
-  Sound(Vector(), "package://merge/Client/SFX/" .. sfx, true, true, SoundType.SFX, 0.5)
+  Sound(Vector(), "package://nanos-world-merge/Client/SFX/" .. sfx, true, true, SoundType.SFX, 0.5)
 end)
 
 -- Shop Events

@@ -3,9 +3,9 @@
     # friendly name
     title =                 "merge"
     # contributors
-    author =                ""
+    author =                "olivato"
     # version
-    version =               "0.0.1"
+    version =               "0.0.2"
 
 # game-mode configurations
 [game_mode]

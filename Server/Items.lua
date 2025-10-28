@@ -78,7 +78,7 @@ ShopItems = {
             )
             cube:SetScale(Vector(0.75, 0.75, 0.75))
             cube:SetMaterialColorParameter("Tint", Color.Random())
-            cube:SetMaterialTextureParameter("Texture", "package://nanos-world-merge/Textures/thinking.jpg")
+            cube:SetMaterialTextureParameter("Texture", "package://nanos-world-merge/Client/Textures/thinking.jpg")
             -- Rotate the cube continuously
             Timer.SetInterval(function()
                 if cube:IsValid() then
